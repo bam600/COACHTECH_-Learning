@@ -1,0 +1,26 @@
+
+/* paddingの使い方 */
+/* 上下10px, 左右20pxのpadding */
+.button {
+  background-color: dodgerblue;
+  color: white;
+  border: 2px solid navy;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+
+.box {
+  width: 100px;
+  height: 100px;
+  background-color: tomato;
+  border: 2px solid black;
+}
+
+/* marginの使い方 */
+.box-2 {
+  /* 上に30pxのmargin */
+  margin-top: 30px;
+}
+
+

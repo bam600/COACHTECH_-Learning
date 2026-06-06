@@ -1,0 +1,121 @@
+/* ページ全体の背景と基本フォント */
+body {
+  background-color: #f4f4f4;
+  font-family: sans-serif;
+  color: #333;
+}
+
+/* プロフィールカードのスタイリング */
+#profile-card {
+  /* カードの幅を600pxに固定 */
+  width: 600px;
+  /* 上下40px,左右は自動で中央寄せ */
+  margin: 40px auto;
+  /* 薄いグレーの枠線 */
+  border: 1px solid #ddd;
+  /* 角を丸める */
+  border-radius: 8px;
+  /* Gridコンテナにする */
+  display: grid;
+  /*左列150px, 右列は残り全部  */
+  grid-template-columns: 150px 1fr;
+  /* 3行　中段は可変高 */
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "image name"
+    "image intro"
+    "image social";
+  /* エリア間の隙間 */
+  gap: 20px;
+  /* Grid化に伴い不要になる、または変更するスタイル */
+  /* paddingは維持 */
+  padding: 30px;
+}
+
+#profile-card > p {
+  /* introエリアに配置 */
+  grid-area: intro;
+  /* Gridで配置するので不要なmarginはリセット */
+  margin: 0;
+}
+
+/* SNSsectionを配置するための新しいセレクタ */
+.social-section {
+  /* socialエリアに配置 */
+  grid-area: social;
+}
+
+.profile-image {
+  /* imageエリアに配置 */
+  grid-area: image;
+  /* 幅を列のサイズに合わせる */
+  width: 150px;
+  /* 高さも指定して正円を維持 */
+  height: 150px;
+  border-radius: 50%;
+  /* /* ブロック要素に変換 
+  display: block;
+  /* 上0,左右auto(中央),下20px
+  margin: 0 auto 20px; */
+}
+
+h1 {
+  /* nameエリアに配置 */
+  grid-area: name;
+  text-align: center;
+  color: #2c3e50;
+  /* Gridで配置するので不要なmarginはリセット */
+  margin: 0;
+}
+
+h2 {
+  /* 青い下線を追加 */
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 5px;
+  /* GridのGapで余白ができるのでリセット */
+  margin-top: 0px;
+}
+
+ul {
+  /* リンクの下線を削除 */
+  text-decoration: none;
+  /* リンクの色を青に */
+  color: #3498db;
+}
+
+li a {
+  /* リンクの下線を削除 */
+  text-decoration: none;
+  /* リンクの色を青に */
+  color: #3498db;
+}
+
+/* li a:hover {
+  /* マウスが乗ったときに下線を表示
+  text-decoration: underline;
+} */
+
+/* 既存のli a　スタイルをこちらに統合・修正 */
+.social-links li a {
+  /* paddingを有効にするためブロック要素に */
+  display: block;
+  padding: 10px 20px;
+  /* 青い背景 */
+  background-color: #3498db;
+  /* 白い文字 */
+  color: white;
+  /* リンクの下線を削除 */
+  text-decoration: none;
+  /* 角を丸める */
+  border-radius: 5px;
+  /* 背景色の変化を滑らかに */
+  transition: background-color 0.3s;
+}
+
+/* 既存のli a　スタイルをこちらに統合・修正 */
+.social-links a:hover {
+  /* 少し濃い青に*/
+  background-color: #2980b9;
+  /* hover時も下線は不要 */
+  text-decoration: none;
+}
