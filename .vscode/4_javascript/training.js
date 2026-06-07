@@ -44,3 +44,30 @@ console.log(negative); // 出力：-10
 // 計算
 const total = price * 2; // 1980.5 * 2
 console.log(total); // 出力：3961
+
+// 真偽値(Boolean)
+const isLoggedIn = true;
+console.log(isLoggedIn); // 出力：true
+
+// 条件分岐で使用
+if (isLoggedIn) {
+  console.log("ユーザーはログインしています。"); // 出力：ユーザーはログインしています。
+}
+
+// undefined
+let notAssigned;
+console.log(notAssigned); // 出力：undefined
+
+// null
+// ユーザーがないなことを明示
+let user = null;
+console.log(user); // 出力：null
+
+// typeof 演算子でデータ型を確認
+console.log(typeof "文字列"); // 出力: string
+console.log(typeof 123); // 出力: number
+console.log(typeof true); // 出力: boolean
+console.log(typeof undefined); // 出力: undefined
+console.log(typeof null); // 出力: object（歴史的な理由による）
+console.log(typeof [1, 2, 3]); // 出力: object
+console.log(typeof { a: 1 }); // 出力: object
