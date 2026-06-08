@@ -1,12 +1,8 @@
-// ６．スコープの基本
+// 論理演算子
 
-// グローバル変数は関数内からアクセスできる
-const globalMessage = "グローバル変数";
+const user = null;
 
-function showMessage() {
-  // OK
-  console.log(globalMessage);
+// userがnullなので、user.isAdminの評価は実行されず、エラーにならない
+if (user && user.isAdmin) {
+  console.log("管理者です");
 }
-
-// グローバル変数が表示
-// showMessage();
