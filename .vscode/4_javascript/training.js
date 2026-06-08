@@ -1,55 +1,22 @@
-// 4-1-3: 関数の定義と呼び出し
+// アロー関数
 
-// 1. 関数の基本的な定義
-function greet() {
-  console.log("こんにちは！");
-}
-
-// 関数の呼び出し
-greet(); // こんにちは！と表示される
-greet(); // こんにちは！と表示される
-
-// 2. 引数（パラメータ）
-function greet(name) {
-  console.log(`こんにちは、${name}さん！`);
-}
-
-greet("太郎"); // こんにちは、太郎さん！と表示される
-greet("花子"); // こんにちは、花子さん！と表示される
-
-// 複数の引数を受け取る関数
+// 従来の関数
 function add(a, b) {
-  console.log(a + b);
+  return a + b;
 }
 
-add(5, 3); // 8と表示される
-add(10, 20); // 30と表示される
+// アロー関数
+const add1 = (a, b) => {
+  return a + b;
+};
 
-// 3. 戻り値（return）
-function add(a, b) {
-  return a + b; // 計算結果を返す
-}
+// 処理が1行の場合は、さらに短くかける
+const add2 = (a, b) => a + b;
 
-const result = add(5, 3);
-console.log(result); // 8と表示される
+// 引数が１つの場合には『』も省略できる
+const double = (x) => x * 2;
 
-// 戻り値を直接使う
-console.log(add(10, 20)); // 30と表示される
-
-// 計算結果を別の計算に使う
-const total = add(100, 200) + add(50, 50);
-console.log(total); // 400と表示される
-
-function checkAge(age) {
-  if (age < 0) {
-    return "無効な年齢です";
-  }
-  if (age >= 20) {
-    return "成人です";
-  }
-  return "未成年です";
-}
-
-console.log(checkAge(25)); // 成人ですと表示される
-console.log(checkAge(15)); // 未成年ですと表示される
-console.log(checkAge(-5)); // 無効な年齢ですと表示される
+console.log(add(3, 5)); // 8
+console.log(add1(3, 5)); // 8
+console.log(add2(3, 5)); // 8
+console.log(double(4)); // 8
