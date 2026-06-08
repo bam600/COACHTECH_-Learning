@@ -1,22 +1,16 @@
-// アロー関数
-
-// 従来の関数
-function add(a, b) {
-  return a + b;
+function greet(name = "ゲスト") {
+  console.log(`こんにちは、${name}さん`);
 }
+// nameの値がないと判断したらゲストさんが表示される
+greet();
+greet("太郎");
 
-// アロー関数
-const add1 = (a, b) => {
-  return a + b;
-};
+// アロー関数でも同様　mutiply ＝掛け算の意味
+const mutiply = (a, b = 1) => a * b;
 
-// 処理が1行の場合は、さらに短くかける
-const add2 = (a, b) => a + b;
-
-// 引数が１つの場合には『』も省略できる
-const double = (x) => x * 2;
-
-console.log(add(3, 5)); // 8
-console.log(add1(3, 5)); // 8
-console.log(add2(3, 5)); // 8
-console.log(double(4)); // 8
+// bのみ初期値を設定しているためnanが表示される
+console.log(mutiply());
+// 15
+console.log(mutiply(5, 3));
+// 5
+console.log(mutiply(5));
