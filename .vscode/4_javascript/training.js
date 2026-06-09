@@ -1,15 +1,15 @@
-// 三項演算子
+// forループ
 
-// //if-else文の場合
-const age = 20;
-
-// let message;
-// if (age >= 20) {
-//   message = "成人";
-// } else {
-//   message = "未成年";
+// for(初期化;条件式;増減式){
+// 繰り返したい処理
 // }
 
-// 三項演算子の場合
-const message = age >= 20 ? "成人" : "未成年";
-console.log(message);
+for (let i = 1; i <= 5; i++) {
+  console.log(i);
+}
+
+const fruits = ["りんご", "バナナ", "みかん"];
+
+for (let i = 0; i < fruits.length; i++) {
+  console.log(fruits[i]);
+}
