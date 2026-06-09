@@ -1,11 +1,21 @@
-// for--ofループ文
+//breakとcontinue
 
-// for(const要素 of イテラブルオブジェクト){
-// 各要素に対して行いたい要素
-// }
+const numbers = [1, 5, 10, 15, 20];
 
-const fruits = ["りんご", "バナナ", "みかん"];
+for (const num of numbers) {
+  if (num === 10) {
+    console.log("10をみつけました");
+    // ループを終了
+    break;
+  }
+  // 10に到達するまで実行される
+  console.log(num);
+}
 
-for (const fruit of fruits) {
-  console.log(fruit);
+for (let i = 1; i <= 10; i++) {
+  if (i % 2 === 0) {
+    // 偶数の場合は、この後のconsole.logをスキップして次のループへ
+    continue;
+  }
+  console.log(i);
 }
