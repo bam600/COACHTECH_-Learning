@@ -1,22 +1,29 @@
-// 4-2-1: 配列の基本操作（push, pop, map, filter）
+// 4-2-4: 実践チャプターハンズオン: ToDoリストのデータ構造を作成する
+// 1. ToDoリストのデータ構造
+// 配列変数todosを作成　idプロパティ、textプロパティ、真偽値プロパティを作成
+let todos = [
+  { id: 1, text: "JavaScriptを学ぶ", completed: true },
+  { id: 2, text: "Reactを学ぶ", completed: false },
+  { id: 3, text: "Next.jsを学ぶ", completed: false },
+];
 
-const numbers = [1, 2, 3];
-numbers.push(4);
+// 2. 未完了のToDoだけをフィルタリングする関数
+function getIncompleteTodos(todoList) {
+  return todoList.filter((todo) => !todo.completed);
+}
 
-// 4が追加される
-console.log(numbers);
+console.log("未完了のToDo:", getIncompleteTodos(todos));
 
-// 末尾の４を返して削除
-const lastNumber = numbers.pop();
-// 4が削除される
-console.log(lastNumber);
-
-const numbers1 = [1, 2, 3, 4, 5];
-
-// 各要素を2倍にした新しい配列を作成
-const doubled = numbers1.map((num) => num * 2);
-console.log(doubled);
-
-// 偶数だけを集めた新しい配列を作成
-const evens = numbers1.filter(num => num % 2 === 0);
-console.log(evens);
+// 3. 指定されたIDのToDoを完了済みにする関数
+//
+function completeTodo(todoList, todoId) {
+  return todoList.map((todo) => {
+    if (todo.id === todoId) {
+      return { ...todo, completed: true };
+    }
+    return todo;
+  });
+}
+// completeTodoメソッドにに配列todoのid2の情報を渡して処理を行う
+todos = completeTodo(todos, 2);
+console.log("更新後のToDoリスト:", todos);
