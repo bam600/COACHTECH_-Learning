@@ -1,15 +1,11 @@
-// 4-3-2: 要素の取得と変更（querySelector, innerHTML）
+// 4-3-3: イベントリスナーの追加（addEventListener）
 
-// ID要素を取得
-const mainTitle = document.querySelector("#main-title");
+const myButton = document.querySelector("#my-button");
 
-// クラスで最初の要素を取得
-const firstItem = document.querySelector(".list-item");
+function handleClick() {
+  alert("ボタンがクリックされました！");
+}
 
-// クラスで全ての要素を取得
-const allItems = document.querySelectorAll(".list-item");
-
-// allItemsはNodeListなので、forEachでループ処理できる
-allItems.forEach((item) => {
-  console.log(item.textContent);
-});
+// ボタンがクリックされたらhandleClick関数を実行
+myButton.addEventListener("click", handleClick);
+console.log(myButton);
