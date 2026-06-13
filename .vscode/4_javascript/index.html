@@ -1,15 +1,22 @@
-<!-- 4-3-2: 要素の取得と変更（querySelector, innerHTML） -->
+<!-- 4-3-4: 実践 チャプターハンズオン: ToDoリストを作成する -->
+
 <!doctype html>
-<html lang="en">
+<html lang="ja">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>ToDo List</title>
   </head>
   <body>
-    <h1 id="main-title">買い物リスト</h1>
+    <!-- 見出し１ -->
+    <h1>ToDo List</h1>
 
-    <button id="my-button">クリック</button>
+    <!-- テキスボックスを作成 -->
+    <input type="text" id="todo-input" placeholder="新しいToDoを入力" />
+    <!-- 追加のボタンを作成 -->
+    <button id="add-button">追加</button>
+    <!-- リストタグの作成 -->
+    <ul id="todo-list"></ul>
 
     <script src="training.js"></script>
   </body>
