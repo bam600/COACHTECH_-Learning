@@ -1,36 +1,52 @@
-// 4-3-4: 実践 チャプターハンズオン: ToDoリストを作成する
+//5-1-2: 同期処理と非同期処理の違い
 
-// 1. DOM要素の取得
-// todo-inputの要素を探す
-const todoInput = document.querySelector("#todo-input");
-// add-buttonの要素を探す
-const addButton = document.querySelector("#add-button");
-// todo-listの要素を探す
-const todoList = document.querySelector("#todo-list");
+// 上から順番に処理する同期処理
+console.log("1.最初の処理");
+console.log("2.次の処理");
+console.log("3.最後の処理");
 
-// 2.イベントリスナーの登録
-// 追加ボタンをクリックしたら処理を行う
-addButton.addEventListener("click", function () {
-  // a.テキストの取得
-  // idがtodoInputの値を取得して定数todoTextに格納
-  const todoText = todoInput.value;
+// 同期処理の問題
+// 仮に重い処理があった場合のイメージ
+console.log("1.処理開始");
+// heavyProcess();
+console.log("2.処理終了");
 
-  // 入力が空の場合は何もしない
-  // todoTextが空だったら処理終了
-  if (todoText === "") return;
+// 非同期処理
+console.log("1.最初の処理");
 
-  // b.li要素の作成
-  // todoTextに値がはいっていたら(falseの場合)liタグを作成
-  const newTodoItem = document.createElement("li");
+// setTimeoutは非同期処理
+setTimeout(() => {
+  console.log("2.1秒後の処理");
+}, 1000);
 
-  // c.テキストの設定
-  // liタグにテキストを設定
-  newTodoItem.textContent = todoText;
+console.log("3.最後の処理");
 
-  // d.li要素の追加
-  todoList.appendChild(newTodoItem);
+// 基本構文
+// setTimeout(() => {
+// 実行したい処理
+// }, 待機時間(ミリ秒));
 
-  // e.inputを空にする
-  // 初期状態にもどす
-  todoInput.value = "";
-});
+// 例：2秒後にメッセージを表示
+setTimeout(() => {
+  console.log("2秒経過しました");
+}, 2000);
+
+// 複数のsetTimeoutを使った例
+
+setTimeout(() => {
+  console.log("3");
+}, 1000);
+
+setTimeout(() => {
+  console.log("2");
+}, 2000);
+
+setTimeout(() => {
+  console.log("1");
+}, 3000);
+
+setTimeout(() => {
+  console.log("スタート");
+}, 4000);
+
+console.log("カウントダウン中");
