@@ -1,5 +1,4 @@
-// 5. Promise.all と Promise.race
-
+// 6.コールバックとPromiseの比較
 function fetchUser(userId) {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -11,27 +10,47 @@ function fetchUser(userId) {
   });
 }
 
-const promise1 = fetchUser(1);
-const promise2 = fetchUser(2);
-const promise3 = fetchUser(3);
-
-Promise.all([promise1, promise2, promise3])
-  .then((results) => {
-    console.log("全ユーザー:", results);
-    // [{id:1,...},{id:2,...},{id:3,...}]
-  })
-  .catch((error) => {
-    // いずれかが失敗した場合
-    console.error("エラー:", error);
+function fetchPosts(userId) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve([
+        { id: 1, title: "最初の投稿" },
+        { id: 2, title: "2番目の投稿" },
+      ]);
+    }, 1000);
   });
+}
 
-const slow = new Promise((resolve) => {
-  setTimeout(() => resolve("遅い処理"), 3000);
-});
-const fast = new Promise((resolve) => {
-  setTimeout(() => resolve("速い処理"), 1000);
+function fetchComments(postId) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve([
+        { id: 1, text: "素晴らしい！" },
+        { id: 2, text: "参考になりました" },
+      ]);
+    }, 1000);
+  });
+}
+
+fetchUser(1)
+  .then((user) => fetchPosts(user.id))
+  .then((posts) => fetchComments(posts[0].id))
+  .then((comments) => console.log(comments))
+  .catch((error) => console.error(error));
+
+// 6.コールバックとPromiseの比較
+// コールバック版（読みにくい）
+fetchUser(1, (user) => {
+  fetchPosts(user.id, (posts) => {
+    fetchComments(posts[0].id, (comments) => {
+      console.log(comments);
+    });
+  });
 });
 
-Promise.race([slow, fast]).then((result) => {
-  console.log("勝者:", result);
-});
+// Promise版（読みやすい）
+fetchUser(1)
+  .then((user) => fetchPosts(user.id))
+  .then((posts) => fetchComments(posts[0].id))
+  .then((comments) => console.log(comments))
+  .catch((error) => console.error(error));
