@@ -1,37 +1,55 @@
 // 5-1-4: Chapter 1 ハンズオン: setTimeoutを使った非同期処理
 
-// 課題2: カウントダウンタイマーを作成する
+// 課題3: Promiseを使ったデータ取得シミュレーション
 
-// 1.countdown(seconds) 関数を作成
-// 引数はseconds
-function countdown(seconds) {
-  // カウントダウンの秒数をコンソールで表示(秒数は引数seconds)
-  console.log(`カウントダウン開始: ${seconds}秒`);
-
-  // 2.1秒ごとに秒数を表示
-  // 引数seconds(秒数)が0いかになるまで1秒ずつ減らす
-  for (let i = seconds; i >= 0; i--) {
-    setTimeout(
-      () => {
-        // もしiが0より大きかったら
-        if (i > 0) {
-          // コンソールにiを表示
-          console.log(i);
-          // それ以外だったら
-        } else {
-          // コンソールに完了を表示
-          console.log("完了！");
-        }
-      },
-      処理ごとに引数secondから -
-        iしたものに1000ミリ秒を掛けてその秒数になったら実行処理を行う(
-          seconds - i,
-        ) *
-          1000,
-    );
-  }
+// fetchData関数を作成(引数はid)
+function fetchData(id) {
+  // Promiseオブジェクトを作成引数は成功と失敗
+  return new Promise((resolve, reject) => {
+    // idをコンソールで表示
+    console.log(`データ取得中... (ID: ${id})`);
+    setTimeout(() => {
+      // idが0以下だったら
+      if (id <= 0) {
+        // 失敗の引数に渡す
+        reject(new Error("無効なIDです"));
+        // 0以上だったら
+      } else {
+        // 成功の引数にデータを渡す
+        resolve({
+          id: id,
+          title: `データ ${id}`,
+          // ？？わかりません
+          createdAt: new Date().toISOString(),
+        });
+      }
+      // 1秒後に実行する
+    }, 1000);
+  });
 }
-secondsに5を渡す;
-countdown(5);
 
-// 3.0になったら「完了！」を表示
+// idが1
+fetchData(1)
+  // 成功パターン
+  .then((data) => {
+    // コンソールで取得成功：1を表示
+    console.log("取得成功:", data);
+  })
+  // エラーパターン
+  .catch((error) => {
+    // エラーメッセージを表示
+    console.error("エラー:", error.message);
+  });
+
+// 失敗パターン
+fetchData(-1)
+  // 成功パターン
+  .then((data) => {
+    // コンソールで取得成功：-1を表示
+    console.log("取得成功:", data);
+  })
+  // エラーパターン
+  .catch((error) => {
+    // -1の場合はエラー表示
+    console.error("エラー:", error.message);
+  });
