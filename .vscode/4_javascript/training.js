@@ -1,71 +1,47 @@
-// 課題4: Promiseチェーンを使った連続処理
+//課題5: Promise.allを使った並列処理
 // getUser関数を作成。引数にuserId
 function getUser(userId) {
-  // 成功したら、0.5秒後にidとnameを渡す(ユーザ情報を取得)
+  // Promiseオブジェクトを作成
   return new Promise((resolve) => {
+    // names配列に名前を格納する
+    const names = ["田中", "佐藤", "鈴木", "高橋", "渡辺"];
     setTimeout(() => {
-      resove({ id: userId, name: "山田太郎" });
-    }, 500);
+      // 成功プロパティidはuserId　nameはuserIdから1引いた配列番号を取得かつuserIdを取得
+      resolve({
+        id: userId,
+        name: [userId - 1] || "ユーザー${userId}",
+      });
+      // ランダムな遅延で実行する
+    }, Math.random() * 1000);
   });
 }
 
-// 投稿取得
-// getPosts関数を作成引数にuserId
-function getPosts(userId) {
-  // 成功したら0.5秒後にidとnameとtitleの処理を実行
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve([
-        { id: 1, userId: userId, title: "最初の投稿" },
-        { id: 2, userId: userId, title: "2番目の投稿" },
-      ]);
-    }, 500);
-  });
-}
+// 5人のユーザーを並列で取得
+// userPromises配列を作成
+const userPromises = [
+  // 1は田中、2は佐藤、3,は鈴木、4は高橋、5は渡辺
+  getUser(1),
+  getUser(2),
+  getUser(3),
+  getUser(4),
+  getUser(5),
+];
 
-// コメント取得
-function getComments(postId) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve([
-        { id: 1, postId: postId, text: "素晴らしい記事です！" },
-        { id: 2, postId: postId, text: "参考になりました" },
-      ]);
-    }, 500);
-  });
-}
-// Promiseチェーンで連結
-console.log("処理開始");
+console.log("全ユーザーを取得中...");
 
-// getUser関数に引数1を渡す
-getUser(1)
-  .then((user) => {
-    console.log("ユーザー取得:", user.name);
-    // user.idの1をgetPosts関数に戻す
-    return getPosts(user.id);
-  })
-  // user.id 1の投稿内容を取得し何件あるか調べる
-  .then((posts) => {
-    console.log("投稿取得:", posts.length, "件");
-    // なんと表現したらいいかわからない
-    return getComments(posts[0].id);
-  })
-  // ？？？？
-  .then((comments) => {
-    console.log("コメント取得:", comments.length, "件");
-    comments.forEach((comment) => {
-      console.log(`  - ${comment.text}`);
+// 複数のpromiseを並列で実行する引数にuserPromisesを渡す
+Promise.all(userPromises)
+  // 成功の処理
+  .then((users) => {
+    console.log("取得完了！");
+    // useridの数分表示する
+    users.forEach((user) => {
+      // コンソールの実行
+      console.log(`  ID: ${user.id}, 名前: ${user.name}`);
     });
   })
-  // エラーの場合
+  // エラーの場合の処理
   .catch((error) => {
-    // コンソールにエラーメッセージを表示する
+    // エラーメッセージをコンソールで表示
     console.error("エラー:", error);
-  })
-
-  // 処理が終了した場合△
-  // 処理が失敗しても終了しても最後に実行する。
-  .finally(() => {
-    // コンソールに処理完了を表示
-    console.log("処理完了");
   });
