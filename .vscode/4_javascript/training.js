@@ -24,3 +24,14 @@ Promise.all([promise1, promise2, promise3])
     // いずれかが失敗した場合
     console.error("エラー:", error);
   });
+
+const slow = new Promise((resolve) => {
+  setTimeout(() => resolve("遅い処理"), 3000);
+});
+const fast = new Promise((resolve) => {
+  setTimeout(() => resolve("速い処理"), 1000);
+});
+
+Promise.race([slow, fast]).then((result) => {
+  console.log("勝者:", result);
+});
