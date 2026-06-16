@@ -1,55 +1,71 @@
-// 5-1-4: Chapter 1 ハンズオン: setTimeoutを使った非同期処理
-
-// 課題3: Promiseを使ったデータ取得シミュレーション
-
-// fetchData関数を作成(引数はid)
-function fetchData(id) {
-  // Promiseオブジェクトを作成引数は成功と失敗
-  return new Promise((resolve, reject) => {
-    // idをコンソールで表示
-    console.log(`データ取得中... (ID: ${id})`);
+// 課題4: Promiseチェーンを使った連続処理
+// getUser関数を作成。引数にuserId
+function getUser(userId) {
+  // 成功したら、0.5秒後にidとnameを渡す(ユーザ情報を取得)
+  return new Promise((resolve) => {
     setTimeout(() => {
-      // idが0以下だったら
-      if (id <= 0) {
-        // 失敗の引数に渡す
-        reject(new Error("無効なIDです"));
-        // 0以上だったら
-      } else {
-        // 成功の引数にデータを渡す
-        resolve({
-          id: id,
-          title: `データ ${id}`,
-          // ？？わかりません
-          createdAt: new Date().toISOString(),
-        });
-      }
-      // 1秒後に実行する
-    }, 1000);
+      resove({ id: userId, name: "山田太郎" });
+    }, 500);
   });
 }
 
-// idが1
-fetchData(1)
-  // 成功パターン
-  .then((data) => {
-    // コンソールで取得成功：1を表示
-    console.log("取得成功:", data);
-  })
-  // エラーパターン
-  .catch((error) => {
-    // エラーメッセージを表示
-    console.error("エラー:", error.message);
+// 投稿取得
+// getPosts関数を作成引数にuserId
+function getPosts(userId) {
+  // 成功したら0.5秒後にidとnameとtitleの処理を実行
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve([
+        { id: 1, userId: userId, title: "最初の投稿" },
+        { id: 2, userId: userId, title: "2番目の投稿" },
+      ]);
+    }, 500);
   });
+}
 
-// 失敗パターン
-fetchData(-1)
-  // 成功パターン
-  .then((data) => {
-    // コンソールで取得成功：-1を表示
-    console.log("取得成功:", data);
+// コメント取得
+function getComments(postId) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve([
+        { id: 1, postId: postId, text: "素晴らしい記事です！" },
+        { id: 2, postId: postId, text: "参考になりました" },
+      ]);
+    }, 500);
+  });
+}
+// Promiseチェーンで連結
+console.log("処理開始");
+
+// getUser関数に引数1を渡す
+getUser(1)
+  .then((user) => {
+    console.log("ユーザー取得:", user.name);
+    // user.idの1をgetPosts関数に戻す
+    return getPosts(user.id);
   })
-  // エラーパターン
+  // user.id 1の投稿内容を取得し何件あるか調べる
+  .then((posts) => {
+    console.log("投稿取得:", posts.length, "件");
+    // なんと表現したらいいかわからない
+    return getComments(posts[0].id);
+  })
+  // ？？？？
+  .then((comments) => {
+    console.log("コメント取得:", comments.length, "件");
+    comments.forEach((comment) => {
+      console.log(`  - ${comment.text}`);
+    });
+  })
+  // エラーの場合
   .catch((error) => {
-    // -1の場合はエラー表示
-    console.error("エラー:", error.message);
+    // コンソールにエラーメッセージを表示する
+    console.error("エラー:", error);
+  })
+
+  // 処理が終了した場合△
+  // 処理が失敗しても終了しても最後に実行する。
+  .finally(() => {
+    // コンソールに処理完了を表示
+    console.log("処理完了");
   });
