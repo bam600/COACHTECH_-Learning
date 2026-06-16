@@ -1,56 +1,43 @@
-// 6.コールバックとPromiseの比較
-function fetchUser(userId) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        id: userId,
-        name: "山田太郎",
-      });
-    }, 1000);
-  });
+// 5-1-4: Chapter 1 ハンズオン: setTimeoutを使った非同期処理
+
+// 課題1:実行順序を予測する
+
+console.log("A");
+
+console.log(() => {
+  console.log("B");
+}, 0);
+
+console.log("C");
+
+setTimeout(() => {
+  console.log("D");
+}, 1000);
+
+console.log("E");
+
+// 私の予想
+// 1:A 2:C 3:E 4:B 5:D
+
+// 課題2: カウントダウンタイマーを作成する
+
+// 1.countdown(seconds) 関数を作成
+function countdown(seconds) {
+  console.log(`カウントダウン開始: ${seconds}秒`);
 }
-
-function fetchPosts(userId) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve([
-        { id: 1, title: "最初の投稿" },
-        { id: 2, title: "2番目の投稿" },
-      ]);
-    }, 1000);
-  });
+// 2.1秒ごとに秒数を表示
+for (let i = seconds; i >= 0; i--) {
+  setTimeout(
+    () => {
+      if (i > 0) {
+        console.log(i);
+      } else {
+        console.log("完了！");
+      }
+    },
+    (secons - i) * 1000,
+  );
 }
+countdouwn(5);
 
-function fetchComments(postId) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve([
-        { id: 1, text: "素晴らしい！" },
-        { id: 2, text: "参考になりました" },
-      ]);
-    }, 1000);
-  });
-}
-
-fetchUser(1)
-  .then((user) => fetchPosts(user.id))
-  .then((posts) => fetchComments(posts[0].id))
-  .then((comments) => console.log(comments))
-  .catch((error) => console.error(error));
-
-// 6.コールバックとPromiseの比較
-// コールバック版（読みにくい）
-fetchUser(1, (user) => {
-  fetchPosts(user.id, (posts) => {
-    fetchComments(posts[0].id, (comments) => {
-      console.log(comments);
-    });
-  });
-});
-
-// Promise版（読みやすい）
-fetchUser(1)
-  .then((user) => fetchPosts(user.id))
-  .then((posts) => fetchComments(posts[0].id))
-  .then((comments) => console.log(comments))
-  .catch((error) => console.error(error));
+// 3.0になったら「完了！」を表示
