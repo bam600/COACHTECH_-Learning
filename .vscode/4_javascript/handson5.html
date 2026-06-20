@@ -1,14 +1,26 @@
-<!-- 5-2-3: JSONデータの取得と表示-->
+<!-- 5-2-4: 実践 🚀 チャプターハンズオン　天気予報を作成-->
 <!doctype html>
 <html lang="ja">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>User-list</title>
+    <title>Blog Posts</title>
+    <style>
+      #posts-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+      }
+      .post-card {
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 16px;
+      }
+    </style>
   </head>
   <body>
-    <h1>User-list</h1>
-    <ul id="user-list"></ul>
+    <h1>Blog Posts</h1>
+    <div id="posts-container"></div>
+
     <script src="training.js"></script>
   </body>
 </html>
